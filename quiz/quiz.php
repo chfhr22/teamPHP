@@ -172,7 +172,7 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
                             alert('좋아요가 추가되었습니다.');
                         } else if (response === 'already_liked') {
                             // 이미 좋아요가 추가된 경우
-                            alert('이미 좋아요를 표시했습니다.');
+                            alert('좋아요가 취소되었습니다.');
                         }
                     }
                 });
