@@ -4,6 +4,7 @@ include "../connect/session.php";
 
 $quizId = $_POST['quizId'];
 $userAnswer = $_POST['answer'];
+$clearTime = $_POST['timeLimit'];
 
 $quizSql = "SELECT * FROM quiz WHERE quizId = '$quizId'";
 $quizResult = $connect->query($quizSql);
@@ -16,7 +17,7 @@ if ($isCorrect) {
     $memberId = $_SESSION['memberId']; // 세션에서 사용자 ID 가져오기
 
     // quizMember 테이블에 데이터 추가
-    $insertSql = "INSERT INTO quizMember(memberId, quizId, isSolved) VALUES ('$memberId', '$quizId', 1)";
+    $insertSql = "INSERT INTO quizMember(memberId, quizId, isSolved, clearTime) VALUES ('$memberId', '$quizId', 1, '$clearTime')";
     $connect->query($insertSql);
 }
 

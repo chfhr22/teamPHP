@@ -4,11 +4,30 @@ include "../connect/session.php";
 
 $quizId = $_GET['quizId'];
 $memberId = $_SESSION['memberId'];
+$youId = $_SESSION['youId'];
 
 // 퀴즈 정보 가져오기
 $quizSql = "SELECT * FROM quiz WHERE quizId = '$quizId'";
 $quizResult = $connect->query($quizSql);
 $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
+
+$rankSql = "SELECT qm.memberId, sm.youId, (q.timeLimit - qm.clearTime) as actualTime FROM quizMember qm JOIN sexyMembers sm ON qm.memberId = sm.memberId JOIN quiz q ON q.quizId = qm.quizId WHERE qm.quizId = '$quizId' AND qm.isSolved = 1 ORDER BY actualTime ASC LIMIT 3";
+$result = $connect->query($rankSql);
+
+$myTimeSql = "SELECT (q.timeLimit - qm.clearTime) as myActualTime FROM quizMember qm JOIN quiz q ON q.quizId = qm.quizId WHERE qm.quizId = '$quizId' AND qm.memberId = $memberId";
+$myTimeResult = $connect->query($myTimeSql);
+$myTimeRow = $myTimeResult->fetch_assoc();
+$myActualTime = $myTimeRow['myActualTime'];
+
+$myRankSql = "SELECT COUNT(*) AS myRank FROM (SELECT qm.memberId, (q.timeLimit - qm.clearTime) as actualTime FROM quizMember qm JOIN quiz q ON q.quizId = qm.quizId WHERE qm.quizId = '$quizId' AND qm.isSolved = 1 ORDER BY actualTime ASC) r WHERE actualTime <= $myActualTime";
+$myRankResult = $connect->query($myRankSql);
+
+if ($myRankResult->num_rows > 0) {
+    $myRankRow = $myRankResult->fetch_assoc();
+    $myRank = $myRankRow['myRank'];
+} else {
+    $myRank = "아직 순위가 결정되지 않았습니다.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +43,54 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
     <style>
         .answerImg {
             width: 90%;
+        }
+
+        .rank__inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .rank__inner li {
+            display: inline-block;
+        }
+
+        .rank__inner li:nth-child(1) {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .rank__inner li:nth-child(1)::before {
+            content: '🥇';
+        }
+
+        .rank__inner li:nth-child(2) {
+            font-size: 18px;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+
+        .rank__inner li:nth-child(2)::before {
+            content: '🥈';
+        }
+
+        .rank__inner li:nth-child(3) {
+            font-size: 16px;
+            font-weight: 500;
+            margin-left: 15px;
+        }
+
+        .rank__inner li:nth-child(3)::before {
+            content: '🥉';
+        }
+
+        .myRank {
+            font-size: 20px;
+            margin-left: 15px;
+            background-color: #9E3436;
+            padding: 0.5rem 1rem;
+            border-radius: 13px;
+            color: #fff;
         }
     </style>
 
@@ -67,12 +134,31 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
                     </div>
                     <form action="checkAnswer.php" method="post" class="q_answer">
                         <input type="hidden" id="quizId" name="quizId" value="<?= $quizId ?>">
+                        <input type="hidden" id="timeLimit" name="timeLimit">
                         <label for="answer">정답 : </label>
                         <input type="text" id="answer" name="answer">
                         <input type="submit" id="submit" value="제출">
                     </form>
-                    <button id="likeButton" data-quizid="<?= $quizId ?>">좋아요</button>
+                    <button id="likeButton" data-quizid="<?= $quizId ?>">좋아요<em>❤</em></button>
+                </div>
 
+                <div class="rank__wrap">
+                    <div class="rank__inner">
+                        <ul>
+                            <?php
+                            if ($result->num_rows > 0) {
+                                $rank = 1;
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<li><span>" . $rank . "위! " . $row["youId"] . " 님 " . $row["actualTime"] . "초</span></li>";
+                                    $rank++;
+                                }
+                                echo "<li class='myRank'><span>나의 순위: " . $myRank . "위</span></li>";
+                            } else {
+                                echo "<p>아직 문제를 푼 사람이 없습니다. 지금 풀면 여러분이 1등🥇!!</p>";
+                            }
+                            ?>
+                        </ul>
+                    </div>
                 </div>
             </section>
         </main>
@@ -111,13 +197,15 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
 
                 let quizId = $('#quizId').val();
                 let answer = $('#answer').val();
+                let timeLimit = $('#timeLimit').val();
 
                 $.ajax({
                     url: 'checkAnswer.php',
                     type: 'post',
                     data: {
                         quizId: quizId,
-                        answer: answer
+                        answer: answer,
+                        timeLimit: timeLimit
                     },
                     success: function (response) {
                         let result = JSON.parse(response);
@@ -139,10 +227,12 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
 
             $('#showAnswer').click(function () {
                 $('#answerText').removeClass('blind');
+                $('.hint').addClass('blind')
             });
 
             $('#showHint').click(function () {
                 $('.hint').removeClass('blind');
+                $('#answerText').addClass('blind');
             });
 
             $('#showRetry').click(function () {
@@ -155,6 +245,14 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
             $('.close').click(function () {
                 $('#modal').css('display', 'none');
             });
+
+            // 퀴즈가 이미 좋아요된 상태인지 확인하고 CSS를 업데이트합니다.
+            let quizId = $('#likeButton').data("quizid");
+            let likedStatus = localStorage.getItem('liked_' + quizId);
+
+            if (likedStatus === 'liked') {
+                $('#likeButton').addClass('liked');
+            }
 
             // 좋아요 버튼 클릭 이벤트 핸들러
             $('#likeButton').click(function () {
@@ -169,10 +267,14 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
                     success: function (response) {
                         if (response === 'liked') {
                             // 좋아요가 성공적으로 추가된 경우
-                            alert('좋아요가 추가되었습니다.');
+                            $('#likeButton').addClass('liked');
+                            // 로컬 저장소에 좋아요 상태 저장
+                            localStorage.setItem('liked_' + quizId, 'liked');
                         } else if (response === 'already_liked') {
                             // 이미 좋아요가 추가된 경우
-                            alert('좋아요가 취소되었습니다.');
+                            $('#likeButton').removeClass('liked');
+                            // 로컬 저장소에서 좋아요 상태 제거
+                            localStorage.removeItem('liked_' + quizId);
                         }
                     }
                 });
@@ -194,6 +296,9 @@ $quizInfo = $quizResult->fetch_array(MYSQLI_ASSOC);
 
                 // 시간 감소
                 timeLimit--;
+
+                // 남은 시간 업데이트
+                $('#timeLimit').val(timeLimit);
 
                 // 시간 종료 시 처리
                 if (timeLimit < 0) {

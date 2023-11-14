@@ -4,6 +4,7 @@ include "../connect/connect.php";
 $sql = "CREATE TABLE quizMember (";
 $sql .= "memberId int(10) unsigned NOT NULL,";
 $sql .= "quizId int(10) unsigned NOT NULL,";
+$sql .= "clearTime int(100) unsigned NOT NULL default 0,";
 $sql .= "isSolved tinyint(1) NOT NULL default 0,";
 $sql .= "likes tinyint(1) NOT NULL default 0,";
 $sql .= "PRIMARY KEY(memberId, quizId),";
