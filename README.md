@@ -13,7 +13,7 @@
 - 반응형 수정했습니다.
 - 퀴즈 페이지에 시작버튼을 누르면 타이머가 시작되면서 문제가 보이도록 수정했습니다, 문제를 풀면 걸린 시간을 토대로 랭킹이 나오게 수정했습니다.
 
-- ## 뇌섹남녀 프로젝트
+## 뇌섹남녀 프로젝트
 - 뇌섹남녀는 문제적남자 프로그램에 나온여러가지 문제들을 풀어볼 수 있는 웹 사이트입니다.
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
 
@@ -41,7 +41,7 @@
 * 마이페이지 : 회원가입시 입력했던 정보들을 수정할 수 있고, 회원 탈퇴를 할 수 있습니다.<br>
 
 ## 트러블 슈팅 
-**<details>
+<details>
 <summary></summary>
 
 </details>
