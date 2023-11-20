@@ -14,11 +14,6 @@ $youRegTime = time();
 $sql = "INSERT INTO sexyMembers(youId, youName, youEmail, youPass, youRegTime, youAddress) VALUES ('$youId', '$youName', '$youEmail', '$youPass', '$youRegTime', '$youAddress')";
 $connect->query($sql);
 
-if (mysqli_query($connect, $sql)) {
-} else {
-    echo "SQL 오류: " . mysqli_error($connect);
-
-}
 
 
 // 데이터베이스 연결 닫기

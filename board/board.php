@@ -182,10 +182,64 @@ $startPage = max($endPage - 5, 1);
                 });
             });
         });
+
+
+        document.getElementById('searchKeyword').addEventListener('change', function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작 방지
+
+            // 검색어 가져오기
+            var searchKeyword = document.getElementById('searchKeyword').value
+
+            // fetch를 이용한 비동기적 검색 요청
+            fetch('search.php', {
+                method: 'POST',
+                body: new URLSearchParams({ searchKeyword })
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (data) {
+                    // 검색 결과를 searchResults 요소에 추가
+                    document.getElementById('searchResults').innerHTML = data;
+                })
+                .catch(function (error) {
+                    console.log('검색 요청에 실패했습니다', error);
+                });
+        });
+
+
+    window.onload = function() {
+        var category = new URL(window.location.href).searchParams.get("category");
+        if (!category) {
+            // category 파라미터가 없는 경우
+            var allLinkElement = document.querySelector(`a[href='board.php']`);
+            if (allLinkElement) {
+                var parentLabel = allLinkElement.parentElement;
+                var onElement = parentLabel.querySelector('.on');
+                if (onElement) {
+                    onElement.classList.add("change");
+                }
+            }
+        } else {
+            // category 파라미터가 있는 경우
+            var linkElements = document.querySelectorAll(`a[href='boardCate.php?category=${category}']`);
+            linkElements.forEach(function(linkElement) {
+                var parentLabel = linkElement.parentElement;
+                var onElement = parentLabel.querySelector('.on');
+                if (onElement) {
+                    onElement.classList.add("change");
+                }
+            });
+        }
+    };
+
+
     </script>
 
     <!-- 검색 결과를 표시할 요소를 추가합니다 -->
     <!-- <div id="searchResults"></div> -->
+
+    
 </body>
 
 </html>

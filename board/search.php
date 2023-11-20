@@ -1,8 +1,8 @@
 <?php
 include "../connect/connect.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $searchKeyword = $_POST['keyword'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $searchKeyword = $_GET['keyword'];
 
     $searchSql = "SELECT * FROM sexyBoard WHERE boardDelete = 1 AND (boardTitle LIKE '%$searchKeyword%' OR boardContents LIKE '%$searchKeyword%') ORDER BY boardId DESC";
     $searchResult = $connect->query($searchSql);

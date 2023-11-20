@@ -9,10 +9,11 @@ if (!isset($_SESSION['youId'])) {
 $commentId = $_POST['commentId'];
 $boardId = $_POST['boardId'];
 $msg = $_POST['msg'];
-$youId = $_SESSION['memberId'];
+$memberId = $_SESSION['memberId'];
+$youId = $_SESSION['youId'];
 
-// 댓글 작성자 ID 가져오기
-$sql = "SELECT memberId FROM SBComment WHERE commentId = ? AND boardId = ?";
+// 댓글 작성자 이름 가져오기
+$sql = "SELECT commentName FROM SBComment WHERE commentId = ? AND boardId = ?";
 $stmt = $connect->prepare($sql);
 if ($stmt === false) {
     die('prepare() failed: ' . htmlspecialchars($connect->error));
@@ -21,12 +22,12 @@ $stmt->bind_param("ii", $commentId, $boardId);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_array(MYSQLI_ASSOC);
-$commentAuthorId = $row['memberId'];
+$commentAuthorName = $row['commentName'];
 
 // 댓글 작성자와 현재 로그인한 사용자가 동일한지 확인
-if ($youId != $commentAuthorId) {
-    echo "youId: $youId, commentAuthorId: $commentAuthorId"; // 디버깅을 위한 출력
-    echo "자신이 작성한 댓글만 수정할 수 있습니다.";
+if ($youId !== $commentAuthorName && $youId !== 'myadmin') {
+    http_response_code(403); // 권한이 없음
+    echo json_encode(array('message' => '자신이 작성한 댓글만 수정할 수 있습니다.'));
     exit;
 }
 
@@ -43,6 +44,7 @@ $result = $stmt->execute();
 if ($result) {
     echo "댓글이 수정되었습니다.";
 } else {
-    echo "댓글 수정에 실패했습니다. 오류: " . $connect->error;
+    http_response_code(500); // 내부 서버 오류
+    echo json_encode(array('message' => '댓글 수정에 실패했습니다. 오류: ' . $connect->error));
 }
 ?>

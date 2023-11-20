@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $connect->query($updateSql);
         } else {
             // 레코드가 없으면, 레코드를 새로 생성
-            $insertSql = "INSERT INTO quizMember (memberId, quizId, isSolved, `likes`) VALUES ('$memberId', '$quizId', 1, 1)";
+            $insertSql = "INSERT INTO quizMember (memberId, quizId, `likes`) VALUES ('$memberId', '$quizId', 1)";
             $connect->query($insertSql);
         }
 

@@ -1,13 +1,36 @@
 <?php
-
 include "../connect/connect.php";
 include "../connect/session.php";
 
-$quizSql = "SELECT * FROM quiz  ORDER BY quizId DESC";
+// 한 페이지에 보여줄 게시물 수
+$limit = 7;
+
+// 현재 페이지 번호를 얻어옵니다.
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// 전체 게시물 수를 DB에서 얻어옵니다.
+$totalquizSql = "SELECT COUNT(*) as total FROM quiz";
+$totalquizResult = $connect->query($totalquizSql);
+$totalquizRow = $totalquizResult->fetch_assoc();
+$totalquiz = $totalquizRow['total'];
+
+// 전체 페이지 수를 계산합니다.
+$totalPage = ceil($totalquiz / $limit);
+
+// 시작할 게시물의 인덱스를 계산합니다.
+$start = ($page - 1) * $limit;
+
+// DB에서 한 페이지에 보여줄 게시물만 얻어옵니다.
+$quizSql = "SELECT * FROM quiz ORDER BY quizId DESC LIMIT $start, $limit";
 $quizResult = $connect->query($quizSql);
 
-?>
+// 시작 페이지와 끝 페이지를 계산합니다.
+$startPage = max($page - 2, 1);
+$endPage = min($startPage + 5, $totalPage);
+$startPage = max($endPage - 5, 1);
 
+
+?>
 <!DOCTYPE html>
 <html lang="KO">
 
@@ -30,7 +53,7 @@ $quizResult = $connect->query($quizSql);
 
             <section id="quiz_list">
                 <div class="intro_inner">
-                    <h3>카테고리</h3>
+                    <h3 class="cate1">전체보기</h3>
                     <article class="list">
                         <h3>풀고 싶은 문제만 모아서 보고싶다면 각 문제에 좋아요 표시를 하세요! 찜 목록에서 확인할 수 있습니다.</h3>
                         <a href="likes.php" class="like_btn">찜 목록</a>
@@ -74,9 +97,27 @@ $quizResult = $connect->query($quizSql);
                                         </div>
                                     </ul>
                                 </a>
+                                
                             </div>
                         <?php } ?>
                     </div>
+                    <div class="quiz__pages">
+                    <ul>
+                        <li><a href="?page=1">
+                                << </a>
+                        </li>
+                        <li><a href="?page=<?php echo max($page - 1, 1); ?>">&lt;</a></li>
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <li <?php if ($page == $i)
+                                echo 'class="active"'; ?>><a href="?page=<?php echo $i; ?>">
+                                    <?php echo $i; ?>
+                                </a></li>
+                        <?php endfor; ?>
+                        <li><a href="?page=<?php echo min($page + 1, $totalPage); ?>">></a></li>
+                        <li><a href="?page=<?php echo $totalPage; ?>">>></a></li>
+                    </ul>
+                </div>
+                <!-- //quiz__pages -->
             </section>
         </div>
         </section>
@@ -115,6 +156,19 @@ $quizResult = $connect->query($quizSql);
                 }
             });
         });
+
+
+    $(document).ready(function() {
+        $('.pagination a').on('click', function(e) {
+            e.preventDefault();
+            var page = $(this).data('page');
+            // Make an AJAX request to load content for the selected page
+            $.get('load_content.php?page=' + page, function(data) {
+                $('#content').html(data);
+            });
+        });
+    });
+    </script>
     </script>
     </div>
 </body>

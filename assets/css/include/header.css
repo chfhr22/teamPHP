@@ -52,10 +52,20 @@ nav.nav {
     transition: color 0.3s;
 }
 
+.login__btn:hover {
+    background-color: #535e94;
+    color: white !important;
+}
+
+.login__btn a {
+    display: block;
+}
+
 .login__btn {
-    background-color: #283269;
     color: #fff !important;
     border-radius: 30px;
+    background-color: #283269;
+    transition: background-color 0.3s;
 }
 
 .loginnav>ul.welcome li:nth-child(1) {

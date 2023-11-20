@@ -6,11 +6,21 @@ include "../connect/sessionCheck.php";
 $boardId = $_GET['boardId'];
 $youId = $_SESSION['youId'];
 
-$query = "SELECT boardCategory, boardTitle, boardContents FROM sexyBoard WHERE boardId = '{$boardId}' AND boardAuthor = '{$youId}'";
+$query = "SELECT boardCategory, boardTitle, boardContents, boardAuthor FROM sexyBoard WHERE boardId = '{$boardId}'";
 $result = $connect->query($query);
-$row = $result->fetch_array(MYSQLI_ASSOC);
 
+if ($result) {
+    $row = $result->fetch_array(MYSQLI_ASSOC);
+    if ($row['boardAuthor'] != $youId && $youId != 'myadmin') {
+        echo "<script>alert('권한이 없습니다.'); history.back();</script>";
+        exit;
+    }
+} else {
+    echo "<script>alert('잘못된 접근입니다.'); history.back();</script>";
+    exit;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ko">
 

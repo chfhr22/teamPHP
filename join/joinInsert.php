@@ -19,6 +19,7 @@
             </div>
         </aside>
         <div class="join_wrap">
+            <a href="../home/main.php" class="gohome"></a>
             <div class="insert_inner">
                 <div class="inner_form">
                     <form action="joinSuccess.php" class="join__form" name="joinSuccess" method="post" onsubmit="return joinChecks();">

@@ -53,6 +53,7 @@ legend {
 .join_wrap {
     box-shadow: -15px 0 15px 0 rgba(0, 0, 0, 0.2);
     width: calc(100% - 426px);
+    position: relative;
 }
 
 #main>.join_wrap>.insert_inner {
@@ -357,6 +358,7 @@ textarea:active {
 .go__search a {
     color: var(--colorSB);
 }
+
 .go__search a:hover {
     text-decoration: underline;
     text-underline-position: under;
@@ -404,11 +406,15 @@ textarea:active {
 
 @media (max-width: 480px) {
     .join__form {
-        padding: 0 30px;
+        padding: 0 20px;
     }
 
     .input__box1 {
         height: 3rem;
+    }
+
+    legend {
+        font-size: 1.2rem;
     }
 
     .msg {
@@ -436,4 +442,5 @@ textarea:active {
     .alread {
         font-size: 0.8rem;
     }
+
 }

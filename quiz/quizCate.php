@@ -34,7 +34,7 @@ $quizResult = $connect->query($quizSql);
 
             <section id="quiz_list">
                 <div class="intro_inner">
-                    <h3>카테고리</h3>
+                    <h3><?=$category?>문제</h3>
                     <article class="list">
                         <h3>풀고 싶은 문제만 모아서 보고싶다면 각 문제에 좋아요 표시를 하세요! 찜 목록에서 확인할 수 있습니다.</h3>
                         <button class="like_btn">찜 목록</button>

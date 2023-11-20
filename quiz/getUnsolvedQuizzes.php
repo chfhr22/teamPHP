@@ -3,10 +3,9 @@ include "../connect/connect.php";
 include "../connect/session.php";
 
 if (isset($_SESSION['memberId'])) {
-    $memberId = $_SESSION['memberId']; // 현재 로그인한 사용자의 memberId
-    $cate = isset($_GET['cate']) ? $_GET['cate'] : null; // 선택한 카테고리
+    $memberId = $_SESSION['memberId']; 
+    $cate = isset($_GET['cate']) ? $_GET['cate'] : null; 
 
-    // 사용자가 푼 문제의 quizId를 가져옴
     $solvedQuizSql = "SELECT quizId FROM quizMember WHERE memberId = $memberId AND isSolved = 1";
     $solvedQuizResult = $connect->query($solvedQuizSql);
 
@@ -14,16 +13,22 @@ if (isset($_SESSION['memberId'])) {
     while ($row = $solvedQuizResult->fetch_assoc()) {
         $solvedQuizIds[] = $row['quizId'];
     }
-
-    // 사용자가 푼 문제를 제외한 문제를 불러옴
-    $quizSql = "SELECT * FROM quiz WHERE quizId NOT IN (" . implode(',', $solvedQuizIds) . ")";
+    $quizSql = "SELECT * FROM quiz";
+    if (!empty($solvedQuizIds)) {
+        $quizSql .= " WHERE quizId NOT IN (" . implode(',', $solvedQuizIds) . ")";
+    }
    
     if ($cate !== null) {
-        $quizSql .= " AND cate = '$cate'";
+        $quizSql .= (empty($solvedQuizIds) ? " WHERE" : " AND") . " cate = '$cate'";
     }
     $quizSql .= " ORDER BY quizId DESC";
-    $quizResult = $connect->query($quizSql);
 
+    $quizResult = $connect->query($quizSql);
+    if ($quizResult === false) {
+        echo "SQL 오류: " . $connect->error;
+        exit;
+    }
+    
 while ($quiz = $quizResult->fetch_assoc()) {
     echo '<div class="card">';
     echo '<a href="quiz.php?quizId=' . $quiz['quizId'] . '">';

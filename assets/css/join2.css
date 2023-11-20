@@ -29,6 +29,7 @@ body {
 .asidetext h1 img {
     width: 100%;
 }
+
 .adress {
     border-top: 1px dashed var(--primary-color);
     padding-top: 7px;
@@ -58,6 +59,7 @@ legend {
 .join_wrap {
     box-shadow: -15px 0 15px 0 rgba(0, 0, 0, 0.2);
     width: calc(100% - 426px);
+    position: relative;
 }
 
 #main>.join_wrap>.insert_inner {
@@ -198,11 +200,13 @@ legend {
     color: var(--primary-color);
 
 }
+
 .alread>p>a:hover {
     color: red !important;
     text-decoration: underline;
     text-underline-position: under;
 }
+
 /* profil */
 .profil__inner {
     width: 600px;
@@ -337,6 +341,7 @@ legend {
     justify-content: center;
     align-items: center;
 }
+
 .insert {
     margin: 0 auto;
     height: 3.25rem;
@@ -401,7 +406,7 @@ legend {
         padding: 0 30px;
     }
 
-   
+
     .msg {
         font-size: 0.7rem;
     }

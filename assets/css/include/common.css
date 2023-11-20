@@ -1,4 +1,3 @@
-
 fieldset {
     border-width: 0;
     font-family: var(--main-neo);
@@ -48,4 +47,70 @@ textarea:active {
 
 .input__box1::-webkit-input-placeholder {
     color: #a0a5adbd;
+}
+
+
+.gohome {
+    position: absolute;
+    border: 1px solid #b8b8b84f;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    z-index: 520212;
+    transition: border 0.3s;
+    top: 2rem;
+    left: 4rem;
+    background-color: #ffffffab;
+}
+
+.gohome:hover {
+    border-color: #9399b6;
+}
+
+.gohome::after {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    content: '';
+    width: 10px;
+    /* 사이즈 */
+    height: 10px;
+    /* 사이즈 */
+    border-top: 2px solid var(--primary-color);
+    /* 선 두께 */
+    border-right: 2px solid var(--primary-color);
+    /* 선 두께 */
+    transform: rotate(225deg);
+    /* 각도 */
+}
+
+@media (max-width:1050px) {
+    .gohome {
+        left: 2rem;
+    }
+}
+
+@media (max-width:480px) {
+    .gohome {
+        position: absolute;
+        left: 2rem;
+        top: auto;
+        bottom: 2rem;
+    }
+
+    .input__box1 {
+        height: 2.8rem;
+        margin-bottom: 10px;
+        padding: 0.6rem;
+        color: #283269;
+    }
+
+    .join__form label {
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .max_width_btn__style {}
 }

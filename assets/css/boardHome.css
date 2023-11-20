@@ -1,6 +1,7 @@
 .board__wrap {
     margin: 0 auto;
-    width: 80%
+    width: 80%;
+    max-width: 1200px !important;
 }
 
 form {
@@ -32,7 +33,7 @@ form {
     font-size: 2.5rem;
     line-height: 1.5;
     color: var(--primary-color);
-    font-weight: bold;
+    font-weight: 400;
     margin-bottom: 2rem;
 }
 
@@ -49,6 +50,9 @@ form {
     background-color: #48549b;
 }
 
+
+
+
 /* board__wrap */
 .board__wrap {
     padding-top: 2rem;
@@ -56,14 +60,13 @@ form {
 
 .board__wrap input {
     width: 100%;
-    border: 2px solid var(--colorSM);
     border-radius: 10px;
-    color: var(--colorSD);
-    background-color: var(--white);
+    color: var(--primary-color);
     cursor: pointer;
     padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
+    font-family: var(--main-neo);
 }
+
 
 .board__wrap input[type='search']::-webkit-search-cancel-button {
     width: 24px;
@@ -86,7 +89,7 @@ form {
     display: inline-block;
     font-size: 15px;
     padding-left: 22px;
-    color: var(--colorS);
+    color: #424f99;
     background-image: url(../img/search.svg);
     background-repeat: no-repeat;
     background-size: 17px;
@@ -101,10 +104,10 @@ form {
 
 /* board__filter */
 .board__filter {
-    border: 2px solid var(--colorSM);
+    border: 2px solid #acb1cd;
     border-radius: 10px;
     background: var(--white);
-    padding: 20px;
+    padding: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -137,16 +140,15 @@ form {
 .board__filter .on {
     width: 20px;
     height: 20px;
-    border-radius: 5px;
+    border-radius: 100%;
     position: absolute;
     top: 2px;
     left: 0;
-    background-color: var(--colorSM);
-
+    background-color: #e4e6f1;
 }
 
 /* 선택된 체크박스 스타일 꾸미기 */
-.board__filter .checkbox input[type="checkbox"]:checked+.on {
+.board__filter .checkbox.on {
     background: var(--colorSM);
     border: 1px solid var(--colorS);
 }
@@ -376,4 +378,116 @@ body {
 
 .wrap2>div>div li:hover {
     background-color: #fdc5b7;
+}
+
+
+@media (max-width: 900px) {
+    .intro__box {
+        padding: 2.5rem 0;
+    }
+
+    .intro__box h2 {
+        font-size: 1.7rem;
+    }
+
+    .intro__box p {
+        font-size: 0.9rem;
+    }
+
+    .write_btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-radius: 2rem;
+        transition: background-color 0.3s;
+    }
+
+    .board__filter {
+        padding: 1.2rem;
+    }
+
+}
+
+@media (max-width: 550px) {
+    .card {
+        border-radius: 7px;
+        margin-bottom: 0;
+        padding: 0.7rem;
+        margin-top: 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    .board__wrap input {
+        padding: 0.2rem 0.8rem;
+    }
+
+    .b_w_wrap li:nth-child(1) {
+        font-size: 0.8rem;
+    }
+
+    .b_w_wrap2>li:nth-child(2) {
+        width: 30px;
+    }
+
+    .intro__box {
+        margin-top: 1.9rem;
+    }
+
+    .intro__box h2 {
+        font-size: 1rem;
+    }
+
+    .intro__box p {
+        font-size: 0.7rem;
+        padding: 0 2rem;
+        word-break: keep-all;
+    }
+
+    .board__filter {
+        padding: 1rem;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .board__filter .on {
+        width: 15px;
+        height: 15px;
+        background-color: #e4e6f1;
+    }
+
+    .board__wrap input {
+        font-size: 0.8rem;
+    }
+
+    .board__wrap input::-webkit-input-placeholder {
+        font-size: 0.8rem;
+    }
+
+    .type__check .checkbox {
+        padding-left: 20px;
+        color: var(--primary-color);
+        font-weight: 400;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+.change {
+    position: relative;
+}
+
+.on.change::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 100%;
 }

@@ -32,6 +32,12 @@
     // echo "<pre>";
     // var_dump($blogFile);
     // echo "</pre>";
+    if(empty($boardTitle) || empty($boardContents)) {
+        echo "<script>alert('제목과 내용을 입력해주세요.');</script>";
+        echo "<script>window.location.href='boardWrite.php';</script>";
+        exit;
+    }
+
     
     if ($boardImgType) {
         $fileTypeExtension = explode("/", $boardImgType);

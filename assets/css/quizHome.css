@@ -109,6 +109,7 @@ img {
     cursor: pointer;
     transition: background-color 0.3s;
     min-width: 100px;
+    text-align: center;
 }
 
 .like_btn:hover {
@@ -300,9 +301,7 @@ a {
 }
 
 @media (max-width: 900px) {
-    :root {
-        font-size: 14px;
-    }
+
 
     #quiz_list .intro_inner .list {
         flex-direction: column;
@@ -352,3 +351,40 @@ a {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
+
+
+/* quiz__pages */
+.quiz__pages {
+    margin-bottom: 2rem;
+}
+
+.quiz__pages ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.quiz__pages li {
+    line-height: 2.3;
+    text-align: center;
+    cursor: pointer;
+    width: 12%;
+
+}
+
+.quiz__pages li a {
+    font-weight: bold;
+    display: flex;
+    color: var(--primary-color);
+}
+
+.quiz__pages li:hover a,
+.quiz__pages li.active a {
+    color: var(--colorSD);
+}
+
+.quiz__pages ul li:first-child a {}
+
+.quiz__pages ul li:last-child a {}

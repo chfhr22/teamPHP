@@ -20,6 +20,7 @@
         </aside>
         <div class="join_wrap">
             <div class="insert_inner">
+                <a href="../home/main.php" class="gohome"></a>
                 <div class="inner_form">
                     <form action="searchPassResult.php" class="join__form" name="joinSuccess" method="post" onsubmit="return joinChecks();">
                         <fieldset>

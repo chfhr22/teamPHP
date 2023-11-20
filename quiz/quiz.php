@@ -1,6 +1,7 @@
 <?php
 include "../connect/connect.php";
 include "../connect/session.php";
+include "../connect/sessionCheck.php";
 
 $quizId = $_GET['quizId'];
 $memberId = $_SESSION['memberId'];
@@ -26,8 +27,13 @@ if ($myRankResult->num_rows > 0) {
     $myRankRow = $myRankResult->fetch_assoc();
     $myRank = $myRankRow['myRank'];
 } else {
-    $myRank = "아직 순위가 결정되지 않았습니다.";
+    $myRank = " ?? ";
 }
+
+$totalQuizSql = "SELECT COUNT(*) as totalQuiz FROM quiz";
+$totalQuizResult = $connect->query($totalQuizSql);
+$totalQuizRow = $totalQuizResult->fetch_assoc();
+$totalQuizId = $totalQuizRow['totalQuiz'];
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +50,21 @@ if ($myRankResult->num_rows > 0) {
         .answerImg {
             width: 90%;
         }
+
+    #next {
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-align: center;
+        padding: 0;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 20%;
+        margin-left: 5px;
+    }
+
+    #next:hover {
+        background-color: #5a68ad;
+    }
 
         .rank__inner {
             display: flex;
@@ -85,12 +106,13 @@ if ($myRankResult->num_rows > 0) {
         }
 
         .myRank {
-            font-size: 20px;
+                        font-size: 20px;
             margin-left: 15px;
             background-color: #9E3436;
             padding: 0.5rem 1rem;
             border-radius: 13px;
             color: #fff;
+display: inline-block;
         }
     </style>
 
@@ -109,7 +131,7 @@ if ($myRankResult->num_rows > 0) {
                         <div class="quiz_timer">
                             <span id="timer"><span id="timeLeft">0:00</span></span>
                         </div>
-                        <div class="q_question">
+                        <div class="q_question blind" id="modal01">
 
                             <div class="question_wrap">
                                 <em>Q<i id="q_em">uiz</i></em>
@@ -131,13 +153,29 @@ if ($myRankResult->num_rows > 0) {
                                 ?>
                             </div>
                         </div>
+<!-- 모달01 -->
+
+                        <div class="q_question" id="modal02">
+                            <div class="question_wrap">
+                                <em>Q<i id="q_em">uiz</i></em>
+                                <p></p>
+                            </div>
+                            <div class="img_wrap">
+                                <img src="../quiz/img/기본.png" alt="기본사진">
+                            </div>
+
+                            <button id="startTimer">시작</button>
+                        </div>
+                        <!-- 모달02 -->
+
                     </div>
                     <form action="checkAnswer.php" method="post" class="q_answer">
                         <input type="hidden" id="quizId" name="quizId" value="<?= $quizId ?>">
                         <input type="hidden" id="timeLimit" name="timeLimit">
                         <label for="answer">정답 : </label>
-                        <input type="text" id="answer" name="answer">
+                        <input type="next" id="answer" name="answer">
                         <input type="submit" id="submit" value="제출">
+                        <input type="next" id="next" value="다음">
                     </form>
                     <button id="likeButton" data-quizid="<?= $quizId ?>">좋아요<em>❤</em></button>
                 </div>
@@ -152,7 +190,7 @@ if ($myRankResult->num_rows > 0) {
                                     echo "<li><span>" . $rank . "위! " . $row["youId"] . " 님 " . $row["actualTime"] . "초</span></li>";
                                     $rank++;
                                 }
-                                echo "<li class='myRank'><span>나의 순위: " . $myRank . "위</span></li>";
+                                echo "<p class='myRank'><span>나의 순위: " . $myRank . "위</span></p>";
                             } else {
                                 echo "<p>아직 문제를 푼 사람이 없습니다. 지금 풀면 여러분이 1등🥇!!</p>";
                             }
@@ -180,9 +218,10 @@ if ($myRankResult->num_rows > 0) {
                 </p>
                 <div class="m_wrap2">
                     <button id="showAnswer" class="blind">정답 보기</button>
-                    <button id="showHint" class="blind">힌트</button>
+                    <button id="showHint" class="blind">힌트 보기</button>
 
                     <button id="showRetry" class="blind">다시 풀기</button>
+                    <button id="showNext" class="blind">다음 문제</button> <!-- 새로 추가 -->
                     <a href="quizHome.php">목록으로</a>
                 </div>
             </div>
@@ -191,12 +230,95 @@ if ($myRankResult->num_rows > 0) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+
+        $('#submit').prop('disabled', true);
+
+        // 좋아요 버튼 클릭 이벤트 핸들러
+        $('#likeButton').click(function () {
+            let quizId = $(this).data("quizid");
+            $.ajax({
+                url: 'likeQuiz.php',
+                type: 'post',
+                data: {
+                    quizId: quizId
+                },
+                success: function (response) {
+                    if (response === 'liked') {
+                        $('#likeButton').addClass('liked');
+                        localStorage.setItem('liked_' + quizId, 'liked');
+                    } else if (response === 'already_liked') {
+                        $('#likeButton').removeClass('liked');
+                        localStorage.removeItem('liked_' + quizId);
+                    }
+                }
+            });
+        });
+        $('.q_answer').on('submit', function(e) {
+        var answer = $.trim($("#answer").val());
+        if (answer.length == 0) {
+            e.preventDefault();
+            alert('정답을 입력해주세요.');
+        }
+    });
+
+    $('#submit').click(function (e) {
+        e.preventDefault();
+        let answer = $('#answer').val().trim();
+        
+        if (answer === '') {
+            alert('정답을 입력해주세요.');
+            return;
+        }
+
+        let quizId = $('#quizId').val();
+        let timeLimit = $('#timeLimit').val();
+
+        $.ajax({
+            url: 'checkAnswer.php',
+            type: 'post',
+            data: {
+                quizId: quizId,
+                answer: answer,
+                timeLimit: timeLimit
+            },
+            success: function (response) {
+                let result = JSON.parse(response);
+
+                if (result.correct) {
+                    $('#result').text("정답입니다!");
+                } else {
+                    $('#result').text("틀렸습니다.");
+                    $('#showAnswer').removeClass('blind');
+                    $('#showHint').removeClass('blind');
+                    $('#showRetry').removeClass('blind');
+                    $('#showNext').removeClass('blind');
+                    $('#answerText').text(result.answer);
+                }
+
+                $('#modal').css('display', 'block');
+            }
+        });
+    });
+
+    $('#startTimer').click(function() {
+        $('#submit').prop('disabled', false);
+        timerInterval = setInterval(updateTimer, 1000);
+        $('#startTimer').addClass('blind');
+        $('#modal02').addClass('blind');
+        $('#modal01').removeClass('blind');
+
+
             $('#submit').click(function (e) {
                 e.preventDefault();
+                let answer = $('#answer').val().trim();
+                
+                if (answer === '') {
+                    alert('정답을 입력해주세요.');
+                    return;
+                }
 
                 let quizId = $('#quizId').val();
-                let answer = $('#answer').val();
                 let timeLimit = $('#timeLimit').val();
 
                 $.ajax({
@@ -217,6 +339,7 @@ if ($myRankResult->num_rows > 0) {
                             $('#showAnswer').removeClass('blind');
                             $('#showHint').removeClass('blind');
                             $('#showRetry').removeClass('blind');
+                            $('#showNext').removeClass('blind');
                             $('#answerText').text(result.answer);
                         }
 
@@ -225,7 +348,7 @@ if ($myRankResult->num_rows > 0) {
                 });
             });
 
-            $('#showAnswer').click(function () {
+            $('#showAnswer').click(function() {
                 $('#answerText').removeClass('blind');
                 $('.hint').addClass('blind')
             });
@@ -238,7 +361,14 @@ if ($myRankResult->num_rows > 0) {
             $('#showRetry').click(function () {
                 location.reload();
             });
-            $('#go__list').click(function () {
+
+            $('#showNext').click(function() {
+                let currentQuizId = <?= $quizId ?>;
+                let nextQuizId = currentQuizId + 1;
+                location.href = 'quiz.php?quizId=' + nextQuizId;
+            });
+
+            $('#go__list').click(function() {
                 location.href = 'quizHome.php';
             });
 
@@ -246,64 +376,21 @@ if ($myRankResult->num_rows > 0) {
                 $('#modal').css('display', 'none');
             });
 
-            // 퀴즈가 이미 좋아요된 상태인지 확인하고 CSS를 업데이트합니다.
-            let quizId = $('#likeButton').data("quizid");
-            let likedStatus = localStorage.getItem('liked_' + quizId);
-
-            if (likedStatus === 'liked') {
-                $('#likeButton').addClass('liked');
-            }
-
-            // 좋아요 버튼 클릭 이벤트 핸들러
-            $('#likeButton').click(function () {
-                let quizId = $(this).data("quizid");
-
-                $.ajax({
-                    url: 'likeQuiz.php',
-                    type: 'post',
-                    data: {
-                        quizId: quizId
-                    },
-                    success: function (response) {
-                        if (response === 'liked') {
-                            // 좋아요가 성공적으로 추가된 경우
-                            $('#likeButton').addClass('liked');
-                            // 로컬 저장소에 좋아요 상태 저장
-                            localStorage.setItem('liked_' + quizId, 'liked');
-                        } else if (response === 'already_liked') {
-                            // 이미 좋아요가 추가된 경우
-                            $('#likeButton').removeClass('liked');
-                            // 로컬 저장소에서 좋아요 상태 제거
-                            localStorage.removeItem('liked_' + quizId);
-                        }
-                    }
-                });
-            });
-
             var timeLimit = <?= $quizInfo['timeLimit'] ?>;
 
-            // 타이머 업데이트 함수
             function updateTimer() {
                 var minutes = Math.floor(timeLimit / 60);
                 var seconds = timeLimit % 60;
 
-                // 시간을 2자리 숫자로 표시
                 var minutesStr = (minutes < 10) ? "0" + minutes : minutes;
                 var secondsStr = (seconds < 10) ? "0" + seconds : seconds;
 
-                // 시간 표시 업데이트
                 $('#timeLeft').text(minutesStr + ":" + secondsStr);
-
-                // 시간 감소
                 timeLimit--;
-
-                // 남은 시간 업데이트
                 $('#timeLimit').val(timeLimit);
 
-                // 시간 종료 시 처리
                 if (timeLimit < 0) {
                     clearInterval(timerInterval);
-                    // 여기에서 시간이 종료되었을 때 실행해야 할 코드를 추가할 수 있습니다.
                     $('#result').text("시간이 종료되었습니다.");
                     $('#showAnswer').removeClass('blind');
                     $('#showHint').removeClass('blind');
@@ -313,12 +400,8 @@ if ($myRankResult->num_rows > 0) {
 
                 }
             }
-
-            // 타이머 업데이트 간격 (1초마다)
-            var timerInterval = setInterval(updateTimer, 1000);
         });
-
-
+    });
     </script>
 </body>
 

@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/mainscript.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -30,14 +34,14 @@
                         but never let yourself be defeated.
                     </h2>
                     <p class="n_text mt30">TV 프로그램에서 봤던 문제를 뇌섹남녀에서 직접 풀 수 있습니다.</p>
-                    <p class="button_bold mt50 mb50">문제 풀어보기</p>
+                    <a href="../quiz/quizHome.php" class="button_bold mt50 mb50">문제 풀어보기</a>
                 </article>
                 <!-- article -->
 
                 <div class="slider">
                     <div class="slide-track">
                         <div class="slide">
-                            <a href="#"><img src="../assets/img/s1.jpg" alt=""
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s1.jpg" alt=""
                                     class="slider__img" />
                                 <div class="desc">
                                     <p class="title">수학문제</p>
@@ -51,7 +55,49 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="#"><img src="../assets/img/s2.jpg" alt=""
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s2.jpg" alt=""
+                                    class="slider__img" />
+                                <div class="desc">
+                                    <p class="title">창의력문제</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">창의력</span>
+                                        <span class="tag">생각</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s3.jpg" alt=""
+                                    class="slider__img" />
+                                <div class="desc">
+                                    <p class="title">추리문제</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">추리</span>
+                                        <span class="tag">범인</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s4.jpg" alt=""
+                                    class="slider__img" />
+                                <div class="desc">
+                                    <p class="title">미로찾기</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">미로</span>
+                                        <span class="tag">탈출</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s5.jpg" alt=""
                                     class="slider__img" />
                                 <div class="desc">
                                     <p class="title">수학문제</p>
@@ -65,7 +111,49 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="#"><img src="../assets/img/s3.jpg" alt=""
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s6.jpg" alt=""
+                                    class="slider__img" />
+                                    <div class="desc">
+                                    <p class="title">창의력문제</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">창의력</span>
+                                        <span class="tag">생각</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s7.jpg" alt=""
+                                    class="slider__img" />
+                                    <div class="desc">
+                                    <p class="title">추리문제</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">추리</span>
+                                        <span class="tag">범인</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s1.jpg" alt=""
+                                    class="slider__img" />
+                                    <div class="desc">
+                                    <p class="title">미로찾기</p>
+                                    <p class="ques">25문제</p>
+                                    <div>
+                                        <span class="tag">미로</span>
+                                        <span class="tag">탈출</span>
+                                        <span class="tag">문제적남자</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s2.jpg" alt=""
                                     class="slider__img" />
                                 <div class="desc">
                                     <p class="title">수학문제</p>
@@ -79,98 +167,14 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="#"><img src="../assets/img/s4.jpg" alt=""
+                            <a href="../quiz/quizCate.php?category=수학"><img src="../assets/img/s3.jpg" alt=""
                                     class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
+                                    <div class="desc">
+                                    <p class="title">창의력문제</p>
                                     <p class="ques">25문제</p>
                                     <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s5.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s6.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s7.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s1.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s2.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
-                                        <span class="tag">문제적남자</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="slide">
-                            <a href="#"><img src="../assets/img/s3.jpg" alt=""
-                                    class="slider__img" />
-                                <div class="desc">
-                                    <p class="title">수학문제</p>
-                                    <p class="ques">25문제</p>
-                                    <div>
-                                        <span class="tag">수학</span>
-                                        <span class="tag">계산</span>
+                                        <span class="tag">창의력</span>
+                                        <span class="tag">생각</span>
                                         <span class="tag">문제적남자</span>
                                     </div>
                                 </div>
@@ -190,7 +194,7 @@
                                     펼쳐지는 대한민국 유일무이 두뇌자극 뇌섹 대결!
                                 </p>
                             </div>
-                            <p class="button_bold">문제 풀어보기</p>
+                            <a href="../quiz/quizHome.php" class="button_bold">문제 풀어보기</a>
                         </article>
                     </article>
                 </article>
@@ -199,57 +203,60 @@
             </section>
             <!-- section01 -->
 
-            <section id="section02">
-                <article id="images">
-                    <div class="imagesWrap">
-                        <div class="section02_img"><img src="../assets/img/images01.jpg" alt="img01"></div>
-                        <p class="img_text">복잡한 미로를<br>최단 루트로<br>탈출하세요!</p>
-                    </div>
-                    <div class="imagesWrap">
-                        <p class="img_text">조각을 맟줘<br>그림을<br>완성하세요! </p>
-                        <div class="section02_img"><img src="../assets/img/images02.jpg" alt="img02"></div>
-                    </div>
-                    <div class="imagesWrap">
-                        <div class="section02_img"><img src="../assets/img/images03.jpg" alt="img03"></div>
-                        <p class="img_text">주어진 글자를<br>조합해<br>단어를 찾으세요!</p>
-                    </div>
-                    <div class="imagesWrap">
-                        <p class="img_text">수포자도<br>풀 수 있는<br>수학 퀴즈</p>
-                        <div class="section02_img"><img src="../assets/img/images04.jpg" alt="img04"></div>
-                    </div>
-                </article>
-            </section>
+<section id="section02" data-bgcolor="#222">
+    <section id="section1" class="parallax__item">
+        <span class="parallax__item__num reveal reveal_LTR">미로</span>
+        <figure class="parallax__item__imgWrap reveal">
+            <div class="parallax__item__img"></div>
+        </figure>
+        <p class="parallax__item__desc split" data-delay="0.5">복잡한 미로를 최단 루트로 탈출하세요!</p>
+    </section>
+    <!-- //section1 -->
+
+    <section id="section2" class="parallax__item">
+        <span class="parallax__item__num reveal">추리</span>
+        <figure class="parallax__item__imgWrap reveal reveal_LTR">
+            <div class="parallax__item__img"></div>
+        </figure>
+        <p class="parallax__item__desc split" data-delay="0.5">주어진 단서들로 범인을 찾아보세요!</p>
+    </section>
+    <!-- //section2 -->
+
+    <section id="section3" class="parallax__item">
+        <span class="parallax__item__num reveal reveal_LTR">창의력</span>
+        <figure class="parallax__item__imgWrap reveal">
+            <div class="parallax__item__img "></div>
+        </figure>
+        <p class="parallax__item__desc split" data-delay="0.5">번뜩이는 생각으로 해결 방법을 찾아 풀어보세요!</p>
+    </section>
+    <!-- //section3 -->
+
+    <section id="section4" class="parallax__item">
+        <span class="parallax__item__num reveal">수학</span>
+        <figure class="parallax__item__imgWrap reveal reveal_LTR">
+            <div class="parallax__item__img" ></div>
+        </figure>
+        <p class="parallax__item__desc split" data-delay="0.5">수포자도 풀 수 있는 수학 퀴즈</p>
+    </section>
+        <!-- //section4 -->
+    <!-- <article id="images">
+    <div class="imagesWrap i1">
+    <p class="img_text it1">복잡한 미로를 최단 루트로 탈출하세요!</p>
+</div>
+<div class="imagesWrap i2">
+    <p class="img_text it2">조각을 맞춰 그림을 완성하세요! </p>
+</div>
+<div class="imagesWrap i3">
+    <p class="img_text it3">주어진 글자를 조합해 단어를 찾으세요!</p>
+</div>
+<div class="imagesWrap i4">
+    <p class="img_text it4">수포자도 풀 수 있는 수학 퀴즈</p>
+</div>
+    </article> -->
+</section>
             <!-- section02 -->
 
             <section id="section03">
-                <!-- about -->
-                <!-- <div class="about">
-    <a class="bg_links social portfolio" href="https://www.rafaelalucas.com" target="_blank">
-       <span class="icon"></span>
-    </a>
-    <a class="bg_links social dribbble" href="https://dribbble.com/rafaelalucas" target="_blank">
-       <span class="icon"></span>
-    </a>
-    <a class="bg_links social linkedin" href="https://www.linkedin.com/in/rafaelalucas/" target="_blank">
-       <span class="icon"></span>
-    </a>
-    <a class="bg_links logo"></a>
- </div> -->
-                <!-- end about -->
-
-                <!-- <nav>
-    <div class="menu">
-       <p class="website_name">LOGO</p>
-       <div class="menu_links">
-          <a href="" class="link">about</a>
-          <a href="" class="link">projects</a>
-          <a href="" class="link">contacts</a>
-       </div>
-       <div class="menu_icon">
-          <span class="icon"></span>
-       </div>
-    </div>
- </nav> -->
 
                 <section class="wrapper">
 
@@ -307,55 +314,106 @@
        <!-- footer -->
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollToPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1/bundled/lenis.min.js"></script>
     <script>
-        // Parallax Code
-        var scene = document.getElementById('scene');
-        var parallax = new Parallax(scene);
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-
-        // GSAP 이미지 및 텍스트 애니메이션
-        gsap.registerPlugin(ScrollTrigger); // ScrollTrigger 플러그인을 등록
-
-        // 각 이미지 및 텍스트 요소에 대한 GSAP 애니메이션
-        gsap.utils.toArray(".imagesWrap").forEach((container, index) => {
-            const direction = index % 2 === 0 ? -1 : 1; // Determine animation direction (-1 for left, 1 for right)
-
-            // 이미지에 대한 GSAP 애니메이션
-            gsap.from(container.querySelector(".section02_img"), {
-                x: window.innerWidth * direction, // 시작 위치 (오른쪽 또는 왼쪽)
-                autoAlpha: 0, // 투명도 0으로 시작하여 나중에 보이도록 함
-                duration: 1, // 애니메이션 지속 시간 (원하는 지속 시간으로 조정 가능)
-                scrollTrigger: {
-                    trigger: container, // 현재 이미지 컨테이너를 트리거로 사용
-                    start: "top 80%", // 트리거 시작 지점
-                    end: "top 50%", // 트리거 종료 지점
-                    scrub: true, // 스크롤에 따라 애니메이션
-
-
-                },
-            });
-
-
-            // 텍스트에 대한 GSAP 애니메이션
-            gsap.from(container.querySelector(".img_text"), {
-                x: window.innerWidth * -direction, // 시작 위치 (왼쪽 또는 오른쪽)
-                autoAlpha: 0, // 투명도 0으로 시작하여 나중에 보이도록 함
-                duration: 1, // 애니메이션 지속 시간 (원하는 지속 시간으로 조정 가능)
-                scrollTrigger: {
-                    trigger: container, // 현재 이미지 컨테이너를 트리거로 사용
-                    start: "top 80%", // 트리거 시작 지점
-                    end: "top 50%", // 트리거 종료 지점
-                    scrub: true, // 스크롤에 따라 애니메이션
-
-
-
-                },
-            });
+        
+        const lenis = new Lenis({
+            duration: 2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
         });
 
+        lenis.on('scroll', (e) => {
+            console.log(e)
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+
+        // lenis
+
+        // gsap
+        const hide = (item) => {
+            gsap.set(item, {autoAlpha: 0});
+        }
+
+        const animate = (item) => {
+            let x = 0;
+            let y = 0;
+            let delay = item.dataset.delay;
+
+            if(item.classList.contains("reveal_LTR")){
+                x = -100,
+                y = 0
+            } else if(item.classList.contains("reveal_BTT")){
+                x = 0,
+                y = 100
+            } else if(item.classList.contains("reveal_TTB")){
+                x = 0,
+                y = -100
+            }  else {
+                x = 100,
+                y = 0
+            }
+
+            gsap.fromTo(item, 
+                {autoAlpha: 0, x: x, y: y}, 
+                {autoAlpha: 1, x: 0, y: 0, delay: delay, duration: 1.25, overWrite: "auto", ease: "sine"})
+        }
+        gsap.utils.toArray(".reveal").forEach(item => {
+            hide(item);
+
+            ScrollTrigger.create({
+                trigger: item,
+                start: "40% bottom",
+                end: "bottom top",
+                onEnter: () => {animate(item)}
+            });
+        });
+        document.querySelectorAll(".split").forEach(text => {
+            let theText = text.innerText;
+            let newText = "";
+
+            for(i=0; i<text.innerText.length; i++){
+                newText += "<span aria-hidden='true'>"
+                
+                if(text.innerText[i] == " "){
+                    newText += "&nbsp";
+                } else {
+                    newText += text.innerText[i];
+                }
+
+                newText += "</span>"
+            }
+            text.innerHTML = newText;
+            text.setAttribute("arial-label", theText);
+        });
+        gsap.utils.toArray(".split").forEach(text => {
+            gsap.from(text.querySelectorAll("span"), {
+                yPercent: 100,
+                autoAlpha: 0,
+                duration: 1,
+                ease: "circ.out",
+                stagger: {
+                    amount: 1,
+                    from: "random"
+                },
+                scrollTrigger: {
+                    trigger: text,
+                    start: "top bottom",
+                    end: "+400",
+                    markers: false
+                }
+            })
+            
+        });
+       
     </script>
 </body>
 

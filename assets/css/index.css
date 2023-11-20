@@ -88,3 +88,7 @@ a {
 .contents>div:nth-child(2) {
     display: block;
 }
+
+ul li a:hover {
+    color: var(--white) !important;
+}
