@@ -1,6 +1,7 @@
 #b_write_wrap {
     position: relative;
     padding: 200px 0;
+    min-height: calc(100vh - 180px);
 }
 
 .write_board {
@@ -21,6 +22,7 @@
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.1);
     height: 100%;
     width: 70%;
+    min-height: 600px;
 }
 
 
@@ -1064,5 +1066,5 @@ select:focus {
 }
 
 .b_contents_style {
-    min-height: 130px;
+    min-height: 430px;
 }
