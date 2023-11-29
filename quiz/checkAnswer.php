@@ -22,19 +22,19 @@ if ($isCorrect) {
     $prevClearTime = $prevTimeInfo['clearTime'];
 
     $insertOrUpdateSql = "
-INSERT INTO quizMember (memberId, quizId, isSolved, clearTime) 
-VALUES ('$memberId', '$quizId', 1, '$clearTime') 
-ON DUPLICATE KEY 
-    UPDATE 
-        isSolved = VALUES(isSolved), 
-        clearTime = VALUES(clearTime)
-";
-$connect->query($insertOrUpdateSql);
+    INSERT INTO quizMember (memberId, quizId, isSolved, clearTime) 
+    VALUES ('$memberId', '$quizId', 1, '$clearTime') 
+    ON DUPLICATE KEY 
+        UPDATE 
+            isSolved = VALUES(isSolved), 
+            clearTime = VALUES(clearTime)
+    ";
+    $connect->query($insertOrUpdateSql);
 
-if ($connect->error) {
-    echo json_encode(array("error" => "Query error: " . $connect->error));
-    exit;
-}
+    if ($connect->error) {
+        echo json_encode(array("error" => "Query error: " . $connect->error));
+        exit;
+    }
 }
 
 $response = array(
